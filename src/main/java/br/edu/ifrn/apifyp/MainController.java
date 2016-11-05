@@ -1,9 +1,11 @@
 package br.edu.ifrn.apifyp;
 
 import br.edu.ifrn.apifyp.repository.ProfissionalRepository;
+import com.google.gson.Gson;
 import java.util.Set;
 import java.util.TreeSet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,7 +46,13 @@ public class MainController {
     }
 
     @RequestMapping(value = "/AdicionarProfissional", method = RequestMethod.POST, produces = "application/json")
-    public Object adicionarProfissional() {
+    public Object adicionarProfissional(@RequestBody String rb) {
+        Gson gson = new Gson();
+        
+        Profissional p = gson.fromJson(rb, Profissional.class);
+        
+        repository.save(p);
+        
         return null;
     }
 }
