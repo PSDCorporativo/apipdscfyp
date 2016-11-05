@@ -1,1 +1,1 @@
-web java -Dserver.port=$PORT $JAVA_OPTS -jar target/apifyp-0.0.1-SNAPSHOT.jar
+web: java -Dserver.port=$PORT -Dspring.datasource.url=${JDBC_DATABASE_URL} -Dspring.datasource.username=${JDBC_DATABASE_USERNAME} -Dspring.datasource.password=${JDBC_DATABASE_PASSWORD} -jar target/apifyp-0.0.1-SNAPSHOT.jar
