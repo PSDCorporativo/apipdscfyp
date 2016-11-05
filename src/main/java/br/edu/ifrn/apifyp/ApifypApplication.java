@@ -6,10 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ApifypApplication {
 
-    protected ApifypApplication() {
+    public static void main(String[] args) {
+        SpringApplication.run(ApifypApplication.class, args);
     }
-
-//	public static void main(String[] args) {
-//		SpringApplication.run(ApifypApplication.class, args);
-//	}
 }
