@@ -45,7 +45,7 @@ public class MainController {
         return p;
     }
 
-    @RequestMapping(value = "/AdicionarProfissional", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/AdicionarProfissional", method = RequestMethod.POST) 
     public Object adicionarProfissional(@RequestBody String rb) {
         Gson gson = new Gson();
         
