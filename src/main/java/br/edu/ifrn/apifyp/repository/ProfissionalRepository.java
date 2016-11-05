@@ -14,5 +14,5 @@ import org.springframework.data.repository.CrudRepository;
  * @author mateus
  */
 public interface ProfissionalRepository extends CrudRepository<Profissional, Long> {
-    
+    Profissional findByLogin(String login);
 }

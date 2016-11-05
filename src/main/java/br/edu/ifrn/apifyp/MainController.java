@@ -6,6 +6,7 @@ import java.util.TreeSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /*
@@ -35,13 +36,15 @@ public class MainController {
         return setPro;
     }
 
-    @RequestMapping(value = "/AdicionarProfissional", method = RequestMethod.GET, produces = "application/json")
-    public Object adicionarProfissional() {
-        Profissional p;
-        p = new Profissional("Mat", "mat@gmail", "matocb", "123", 12, "lindo", "pedreiro", 1, 1, 10);
+    @RequestMapping(value = "/GetProfissionalByLogin", method = RequestMethod.GET, produces = "application/json")
+    public Profissional getProfissionalByLogin(@RequestParam("login") String login) {
+        Profissional p = repository.findByLogin(login);
 
-        repository.save(p);
-        
-        return "Ok";
+        return p;
+    }
+
+    @RequestMapping(value = "/AdicionarProfissional", method = RequestMethod.POST, produces = "application/json")
+    public Object adicionarProfissional() {
+        return null;
     }
 }
