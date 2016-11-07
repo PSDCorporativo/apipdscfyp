@@ -41,18 +41,20 @@ public class MainController {
     @RequestMapping(value = "/GetProfissionalByLogin", method = RequestMethod.GET, produces = "application/json")
     public Profissional getProfissionalByLogin(@RequestParam("login") String login) {
         Profissional p = repository.findByLogin(login);
-
+        
+        repository.delete(p);
+        
         return p;
     }
 
-    @RequestMapping(value = "/AdicionarProfissional", method = RequestMethod.POST) 
+    @RequestMapping(value = "/AdicionarProfissional", method = RequestMethod.POST)
     public Object adicionarProfissional(@RequestBody String rb) {
         Gson gson = new Gson();
-        
+
         Profissional p = gson.fromJson(rb, Profissional.class);
-        
+
         repository.save(p);
-        
+
         return null;
     }
 }
