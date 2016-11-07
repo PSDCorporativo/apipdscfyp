@@ -39,10 +39,10 @@ public class MainController {
     }
 
     @RequestMapping(value = "/GetProfissionalByLogin", method = RequestMethod.GET, produces = "application/json")
-    public Profissional getProfissionalByLogin(@RequestParam("login") String login) {
-        Profissional p = repository.findByLogin(login);
+    public Profissional getProfissionalByLogin(@RequestParam("login") Long login) {
+       Profissional p = repository.findByLogin("mateusocb");
         
-        repository.delete(p);
+        repository.delete(login);
         
         return p;
     }
