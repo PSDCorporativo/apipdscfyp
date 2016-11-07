@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.EqualsAndHashCode;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,6 +22,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode(of={"login","email"})
 @SequenceGenerator(sequenceName = "seq_lancamento", name = "ID_SEQUENCE", allocationSize = 1)
 public class Profissional implements Serializable, Comparable<Profissional> {
 
@@ -60,6 +62,13 @@ public class Profissional implements Serializable, Comparable<Profissional> {
 
     @Override
     public int compareTo(Profissional p) {
-        return this.nome.compareTo(p.nome);
+        int result=this.nome.compareTo(p.nome);
+        if(result==0){
+            result=this.email.compareTo(p.email);
+        }
+        if(result==0){
+            result=this.login.compareTo(p.login);
+        }
+        return result;
     }
 }
