@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifrn.apifyp.dominio;
+package br.edu.ifrn.apifyp;
 
-import br.edu.ifrn.apifyp.Profissional;
 import java.util.Set;
 import java.util.TreeSet;
 
