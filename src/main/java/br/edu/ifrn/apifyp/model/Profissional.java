@@ -1,10 +1,11 @@
-package br.edu.ifrn.apifyp;
+package br.edu.ifrn.apifyp.model;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +23,6 @@ import lombok.EqualsAndHashCode;
 @Getter
 @Setter
 @Entity
-@EqualsAndHashCode(of={"login","email"})
 @SequenceGenerator(sequenceName = "seq_lancamento", name = "ID_SEQUENCE", allocationSize = 1)
 public class Profissional implements Serializable, Comparable<Profissional> {
 
@@ -31,44 +31,32 @@ public class Profissional implements Serializable, Comparable<Profissional> {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ID_SEQUENCE")
     private Long id;
-    private String nome;
-    private String email;
-    private String login;
-    private String senha;
-    private int idNacional;
+
+    @OneToOne
+    private Usuario usuario;
+
     private String descricao;
     private String profissao;
-    private float logintude;
-    private float latitude;
+
     private int pontuacao;
 
     public Profissional() {
     }
 
     public Profissional(String nome, String email, String login, String senha,
-            int idNacional, String descricao, String profissao, float latitude,
-            float logintude, int pontuacao) {
-        this.senha = senha;
+            boolean isProfissional, String rua, String cep, String numero,
+            String complemento, String cidade, String estado,
+            String descricao, String profissao) {
+
+        this.usuario = new Usuario(nome, email, login, senha, isProfissional,
+                rua, cep, numero, complemento, cidade, estado);
         this.profissao = profissao;
-        this.email = email;
-        this.idNacional = idNacional;
-        this.profissao = profissao;
-        this.login = login;
-        this.nome = nome;
-        this.latitude = latitude;
-        this.logintude = logintude;
-        this.pontuacao = pontuacao;
+        this.descricao = descricao;
+        this.pontuacao = 0;
     }
 
     @Override
     public int compareTo(Profissional p) {
-        int result=this.nome.compareTo(p.nome);
-        if(result==0){
-            result=this.email.compareTo(p.email);
-        }
-        if(result==0){
-            result=this.login.compareTo(p.login);
-        }
-        return result;
+        return 1;
     }
 }

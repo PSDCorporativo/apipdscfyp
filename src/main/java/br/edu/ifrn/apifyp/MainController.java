@@ -1,9 +1,14 @@
 package br.edu.ifrn.apifyp;
 
+import br.edu.ifrn.apifyp.model.Profissional;
+import br.edu.ifrn.apifyp.model.Usuario;
+import br.edu.ifrn.apifyp.repository.EnderecoRepository;
 import br.edu.ifrn.apifyp.repository.ProfissionalRepository;
+import br.edu.ifrn.apifyp.repository.UsuarioRepository;
 import com.google.gson.Gson;
 import java.util.Set;
 import java.util.TreeSet;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,12 +29,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class MainController {
 
     @Autowired
-    ProfissionalRepository repository;
+    ProfissionalRepository profissionalRepository;
+    @Autowired
+    UsuarioRepository usuarioRepository;
+    @Autowired
+    EnderecoRepository enderecoRepository;
 
     @RequestMapping(value = "/ListProfissionais", method = RequestMethod.GET, produces = "application/json")
     public Set<Profissional> listProfissionais() {
         Set<Profissional> setPro = new TreeSet();
-        Iterable<Profissional> profissionais = repository.findAll();
+        Iterable<Profissional> profissionais = profissionalRepository.findAll();
 
         for (Profissional p : profissionais) {
             setPro.add(p);
@@ -39,22 +48,47 @@ public class MainController {
     }
 
     @RequestMapping(value = "/GetProfissionalByLogin", method = RequestMethod.GET, produces = "application/json")
-    public Profissional getProfissionalByLogin(@RequestParam("login") Long login) {
-       Profissional p = repository.findByLogin("mateusocb");
-        
-        repository.delete(login);
-        
+    public Profissional getProfissionalByLogin(@RequestParam("login") String login) {
+
+        Usuario u = usuarioRepository.findByLogin(login);
+
+        Profissional p = profissionalRepository.findByUsuario(u);
+
         return p;
     }
 
     @RequestMapping(value = "/AdicionarProfissional", method = RequestMethod.POST)
-    public Object adicionarProfissional(@RequestBody String rb) {
+    public void adicionarProfissional(@RequestBody String rb) {
         Gson gson = new Gson();
 
         Profissional p = gson.fromJson(rb, Profissional.class);
+        p.getUsuario().setProfissional(true);
+        enderecoRepository.save(p.getUsuario().getEndereco());
+        usuarioRepository.save(p.getUsuario());
+        profissionalRepository.save(p);
+    }
 
-        repository.save(p);
+    @RequestMapping(value = "/AdicionarUsuario", method = RequestMethod.POST)
+    public void adicionarUsuario(@RequestBody String rb) {
+        Gson gson = new Gson();
 
-        return null;
+        Usuario u = gson.fromJson(rb, Usuario.class);
+        
+        u.setProfissional(false);
+        enderecoRepository.save(u.getEndereco());
+        usuarioRepository.save(u);
+    }
+
+    @RequestMapping(value = "/Login", method = RequestMethod.POST)
+    public void login(HttpSession session, @RequestParam("login") String login,
+            @RequestParam("senha") String senha) {
+
+        Usuario u = usuarioRepository.findByLogin(login);
+
+        if (u != null && u.getSenha().equals(senha)) {
+            session.setAttribute("usuarioLogado", u);
+        } else {
+            session.setAttribute("usuarioLogado", null);
+        }
     }
 }

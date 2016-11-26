@@ -5,15 +5,13 @@
  */
 package br.edu.ifrn.apifyp.repository;
 
-import br.edu.ifrn.apifyp.model.Profissional;
 import br.edu.ifrn.apifyp.model.Usuario;
-
 import org.springframework.data.repository.CrudRepository;
 
 /**
  *
  * @author mateus
  */
-public interface ProfissionalRepository extends CrudRepository<Profissional, Long> {
-    Profissional findByUsuario(Usuario usuario);
+public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
+    Usuario findByLogin(String login);
 }
