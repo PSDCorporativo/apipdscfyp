@@ -6,6 +6,7 @@ import br.edu.ifrn.apifyp.repository.EnderecoRepository;
 import br.edu.ifrn.apifyp.repository.ProfissionalRepository;
 import br.edu.ifrn.apifyp.repository.UsuarioRepository;
 import com.google.gson.Gson;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import javax.servlet.http.HttpSession;
@@ -74,22 +75,21 @@ public class MainController {
         Gson gson = new Gson();
 
         Usuario u = gson.fromJson(rb, Usuario.class);
-        
+
         u.setProfissional(false);
         enderecoRepository.save(u.getEndereco());
         usuarioRepository.save(u);
     }
 
-    @RequestMapping(value = "/Login", method = RequestMethod.POST)
-    public void login(HttpSession session, @RequestParam("login") String login,
-            @RequestParam("senha") String senha) {
+    @RequestMapping(value = "/Login", method = RequestMethod.GET, produces = "application/json")
+    public Usuario login(@RequestParam("login") String login, @RequestParam("senha") String senha) {
 
         Usuario u = usuarioRepository.findByLogin(login);
 
         if (u != null && u.getSenha().equals(senha)) {
-            session.setAttribute("usuarioLogado", u);
+            return u;
         } else {
-            session.setAttribute("usuarioLogado", null);
+            return null;
         }
     }
 }
