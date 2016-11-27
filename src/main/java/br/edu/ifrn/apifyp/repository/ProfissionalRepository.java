@@ -7,6 +7,7 @@ package br.edu.ifrn.apifyp.repository;
 
 import br.edu.ifrn.apifyp.model.Profissional;
 import br.edu.ifrn.apifyp.model.Usuario;
+import java.util.Set;
 
 import org.springframework.data.repository.CrudRepository;
 
@@ -16,4 +17,5 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface ProfissionalRepository extends CrudRepository<Profissional, Long> {
     Profissional findByUsuario(Usuario usuario);
+    Set<Profissional> findByProfissao(String profisssao);
 }

@@ -49,14 +49,18 @@ public class MainController {
         return setPro;
     }
 
-    @RequestMapping(value = "/GetProfissionalByLogin", method = RequestMethod.GET, produces = "application/json")
-    public Profissional getProfissionalByLogin(@RequestParam("login") String login) {
+    @RequestMapping(value = "/ListProfissionaisByProfissao", method = RequestMethod.GET, produces = "application/json")
+    public Set<Profissional> listProfissionaisByProfissao(@RequestParam("profissao") String profissao) {
+        Set<Profissional> setPro = new TreeSet();
+        
+        Iterable<Profissional> profissionais = profissionalRepository.findByProfissao(profissao);
 
-        Usuario u = usuarioRepository.findByLogin(login);
+        for (Profissional p : profissionais) {
+            setPro.add(p);
+        }
 
-        Profissional p = profissionalRepository.findByUsuario(u);
-
-        return p;
+        //apenas um comentário
+        return setPro;
     }
 
     @RequestMapping(value = "/AdicionarProfissional", method = RequestMethod.POST)
