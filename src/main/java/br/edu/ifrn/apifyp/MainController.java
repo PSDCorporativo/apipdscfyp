@@ -37,9 +37,9 @@ public class MainController {
     EnderecoRepository enderecoRepository;
 
     @RequestMapping(value = "/GetFuncionarioById", method = RequestMethod.GET, produces = "application/json")
-    public Profissional getProfissional(@RequestParam("idProfissional") String idProfissional) {
+    public Profissional getProfissional(@RequestParam("idProfissional") Long idProfissional) {
         
-        Profissional profissional = profissionalRepository.findOne(Long.getLong(idProfissional));
+        Profissional profissional = profissionalRepository.findOne(idProfissional);
 
         return profissional;
     }
