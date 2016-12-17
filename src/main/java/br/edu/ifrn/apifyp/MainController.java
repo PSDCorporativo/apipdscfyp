@@ -36,6 +36,14 @@ public class MainController {
     @Autowired
     EnderecoRepository enderecoRepository;
 
+    @RequestMapping(value = "/GetFuncionarioById", method = RequestMethod.GET, produces = "application/json")
+    public Profissional getProfissional(@RequestParam("profissionalId") Long profissionalId) {
+        
+        Profissional profissional = profissionalRepository.findOne(profissionalId);
+
+        return profissional;
+    }
+
     @RequestMapping(value = "/ListProfissionais", method = RequestMethod.GET, produces = "application/json")
     public Set<Profissional> listProfissionais() {
         Set<Profissional> setPro = new TreeSet();
@@ -45,21 +53,19 @@ public class MainController {
             setPro.add(p);
         }
 
-        //apenas um comentário
         return setPro;
     }
 
     @RequestMapping(value = "/ListProfissionaisByProfissao", method = RequestMethod.GET, produces = "application/json")
     public Set<Profissional> listProfissionaisByProfissao(@RequestParam("profissao") String profissao) {
         Set<Profissional> setPro = new TreeSet();
-        
+
         Iterable<Profissional> profissionais = profissionalRepository.findByProfissao(profissao);
 
         for (Profissional p : profissionais) {
             setPro.add(p);
         }
 
-        //apenas um comentário
         return setPro;
     }
 
