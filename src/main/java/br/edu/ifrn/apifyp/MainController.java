@@ -6,6 +6,7 @@ import br.edu.ifrn.apifyp.repository.EnderecoRepository;
 import br.edu.ifrn.apifyp.repository.ProfissionalRepository;
 import br.edu.ifrn.apifyp.repository.UsuarioRepository;
 import com.google.gson.Gson;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -38,7 +39,7 @@ public class MainController {
 
     @RequestMapping(value = "/GetFuncionarioById", method = RequestMethod.GET, produces = "application/json")
     public Profissional getProfissional(@RequestParam("idProfissional") Long idProfissional) {
-        
+
         Profissional profissional = profissionalRepository.findOne(idProfissional);
 
         return profissional;
@@ -101,5 +102,26 @@ public class MainController {
         } else {
             return null;
         }
+    }
+
+    @RequestMapping(value = "/GetLocalizacoes", method = RequestMethod.GET, produces = "application/json")
+    public ArrayList<ArrayList<String>> getLocalizacoes() {
+
+        List<Profissional> profissionais = (List<Profissional>) profissionalRepository.findAll();
+
+        ArrayList<ArrayList<String>> response = new ArrayList<>();
+
+        for (Profissional p : profissionais) {
+            ArrayList<String> temp = new ArrayList();
+            
+            temp.add(p.getUsuario().getNome());
+            temp.add(String.valueOf(p.getUsuario().getEndereco().getLatitude()));
+            temp.add(String.valueOf(p.getUsuario().getEndereco().getLongintude()));
+            temp.add("https://pdscfyp.herokuapp.com/profissional?id=" + p.getId());
+            
+            response.add(temp);
+        }
+
+        return response;
     }
 }
