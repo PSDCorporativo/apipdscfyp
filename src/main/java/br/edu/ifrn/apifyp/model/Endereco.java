@@ -1,6 +1,7 @@
 package br.edu.ifrn.apifyp.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,15 +36,15 @@ public class Endereco implements Serializable, Comparable<Endereco> {
     private String complemento;
     private String cidade;
     private String estado;
-    private float longintude;
-    private float latitude;
+    private BigDecimal longintude;
+    private BigDecimal latitude;
 
     public Endereco() {
         super();
     }
 
     public Endereco(String rua, String cep, String numero, String complemento,
-            String cidade, String estado, float longitude, float latitude) {
+            String cidade, String estado, BigDecimal longitude, BigDecimal latitude) {
         super();
         this.rua = rua;
         this.cep = cep;
