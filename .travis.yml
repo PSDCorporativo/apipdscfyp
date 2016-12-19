@@ -1,2 +1,12 @@
 sudo: false
+ddons:
+  apt:
+    packages:
+      oracle-java8-installer
 language: java
+addons:
+  apt:
+    packages:
+      oracle-java8-installer
+jdk:
+    oraclejdk8
