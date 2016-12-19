@@ -60,7 +60,8 @@ public class MainController {
     @RequestMapping(value = "/ListProfissionaisByProfissao", method = RequestMethod.GET, produces = "application/json")
     public Set<Profissional> listProfissionaisByProfissao(@RequestParam("profissao") String profissao) {
         Set<Profissional> setPro = new TreeSet();
-
+        
+        // apenas um comentário
         Iterable<Profissional> profissionais = profissionalRepository.findByProfissao(profissao);
 
         for (Profissional p : profissionais) {
