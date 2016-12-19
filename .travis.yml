@@ -1,12 +1,7 @@
-sudo: required
-ddons:
-  apt:
-    packages:
-      oracle-java8-installer
 language: java
-addons:
-  apt:
-    packages:
-      oracle-java8-installer
 jdk:
-    oraclejdk8
+- oraclejdk8
+install:
+- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+script:
+- mvn test
