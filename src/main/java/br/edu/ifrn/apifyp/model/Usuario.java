@@ -53,7 +53,7 @@ public class Usuario implements Serializable, Comparable<Usuario> {
         this.email = email;
         this.login = login;
         this.nome = nome;
-        this.endereco = new Endereco(rua, cep, numero, complemento, cidade, estado, new BigDecimal(0.0), new BigDecimal(0.0));
+        this.endereco = new Endereco(rua, cep, numero, complemento, cidade, estado, "0.0", "0.0");
     }
 
     @Override

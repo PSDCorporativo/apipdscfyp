@@ -61,8 +61,8 @@ public class MainController {
     public Set<Profissional> listProfissionaisByProfissao(@RequestParam("profissao") String profissao) {
         Set<Profissional> setPro = new TreeSet();
         
-        // apenas um comentário
-        Iterable<Profissional> profissionais = profissionalRepository.findByProfissao(profissao);
+        // apenas um comentário 
+       Iterable<Profissional> profissionais = profissionalRepository.findByProfissao(profissao);
 
         for (Profissional p : profissionais) {
             setPro.add(p);

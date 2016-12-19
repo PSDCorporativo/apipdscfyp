@@ -36,15 +36,15 @@ public class Endereco implements Serializable, Comparable<Endereco> {
     private String complemento;
     private String cidade;
     private String estado;
-    private BigDecimal longintude;
-    private BigDecimal latitude;
+    private String longintude;
+    private String latitude;
 
     public Endereco() {
         super();
     }
 
     public Endereco(String rua, String cep, String numero, String complemento,
-            String cidade, String estado, BigDecimal longitude, BigDecimal latitude) {
+            String cidade, String estado, String longitude, String latitude) {
         super();
         this.rua = rua;
         this.cep = cep;
