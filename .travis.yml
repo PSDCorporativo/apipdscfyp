@@ -1,11 +1,11 @@
 language: java
 jdk:
-- oraclejdk8
+  - oraclejdk8
 install:
-- mvn install
+  - mvn install
 script:
-- mvn install
+  - mvn install
 before_install:
-- psql -c 'create database agoravai;' -U postgres
+  - psql -c 'create database agoravai;' -U postgres
 services:
-- postgresql
+  - postgresql
