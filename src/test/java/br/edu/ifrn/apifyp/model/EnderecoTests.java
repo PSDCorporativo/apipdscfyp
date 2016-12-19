@@ -59,6 +59,7 @@ public class EnderecoTests {
         e2.setRua("Rua Jacaranda");
         e2.setComplemento("Ap 1002");
 
+        //apenas um comentário
         Assert.assertNotEquals(e1, e2);
     }
     
