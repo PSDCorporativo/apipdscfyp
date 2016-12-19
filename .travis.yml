@@ -9,3 +9,5 @@ before_install:
   - psql -c 'create database agoravai;' -U postgres
 services:
   - postgresql
+after_success:
+  - mvn -Pattach-integration-test cobertura:cobertura-integration-test org.eluder.coveralls:coveralls-maven-plugin:4.2.0:report
