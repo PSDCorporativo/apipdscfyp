@@ -46,7 +46,7 @@ public class MainController {
         return profissional;
     }
     
-    @CrossOrigin(origins = "https://apifyp.herokuapp.com/ListProfissionais")
+    @CrossOrigin(origins = "https://apifyp.herokuapp.com/")
     @RequestMapping(value = "/ListProfissionais", method = RequestMethod.GET, produces = "application/json")
     public Set<Profissional> listProfissionais() {
         Set<Profissional> setPro = new TreeSet();
