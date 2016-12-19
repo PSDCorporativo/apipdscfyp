@@ -1,4 +1,4 @@
-sudo: false
+sudo: required
 ddons:
   apt:
     packages:
