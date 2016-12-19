@@ -58,6 +58,6 @@ public class Usuario implements Serializable, Comparable<Usuario> {
 
     @Override
     public int compareTo(Usuario o) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.login.compareTo(o.getLogin());
     }
 }

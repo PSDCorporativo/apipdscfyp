@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode(of = {"numero", "rua", "complemento"})
 @SequenceGenerator(sequenceName = "seq_lancamento", name = "ID_SEQUENCE", allocationSize = 1)
 public class Endereco implements Serializable, Comparable<Endereco> {
 

@@ -23,6 +23,7 @@ import lombok.EqualsAndHashCode;
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode(of = "usuario")
 @SequenceGenerator(sequenceName = "seq_lancamento", name = "ID_SEQUENCE", allocationSize = 1)
 public class Profissional implements Serializable, Comparable<Profissional> {
 
@@ -56,7 +57,7 @@ public class Profissional implements Serializable, Comparable<Profissional> {
     }
 
     @Override
-    public int compareTo(Profissional p) {
-        return 1;
+    public int compareTo(Profissional p) { 
+        return this.profissao.compareTo(p.getProfissao());
     }
 }
