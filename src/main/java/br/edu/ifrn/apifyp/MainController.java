@@ -118,7 +118,7 @@ public class MainController {
             temp.add(p.getUsuario().getNome());
             temp.add(String.valueOf(p.getUsuario().getEndereco().getLatitude()));
             temp.add(String.valueOf(p.getUsuario().getEndereco().getLongintude()));
-            temp.add("https://pdscfyp.herokuapp.com/profissional?id=" + p.getId());
+            temp.add(String.valueOf(p.getId()));
             
             response.add(temp);
         }
