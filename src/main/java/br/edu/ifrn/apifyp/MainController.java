@@ -38,6 +38,7 @@ public class MainController {
     @Autowired
     EnderecoRepository enderecoRepository;
 
+    @CrossOrigin
     @RequestMapping(value = "/GetFuncionarioById", method = RequestMethod.GET, produces = "application/json")
     public Profissional getProfissional(@RequestParam("idProfissional") Long idProfissional) {
 
@@ -59,6 +60,7 @@ public class MainController {
         return setPro;
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/ListProfissionaisByProfissao", method = RequestMethod.GET, produces = "application/json")
     public Set<Profissional> listProfissionaisByProfissao(@RequestParam("profissao") String profissao) {
         Set<Profissional> setPro = new TreeSet();
@@ -73,6 +75,7 @@ public class MainController {
         return setPro;
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/AdicionarProfissional", method = RequestMethod.POST)
     public void adicionarProfissional(@RequestBody String rb) {
         Gson gson = new Gson();
@@ -84,6 +87,7 @@ public class MainController {
         profissionalRepository.save(p);
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/AdicionarUsuario", method = RequestMethod.POST)
     public void adicionarUsuario(@RequestBody String rb) {
         Gson gson = new Gson();
@@ -95,6 +99,7 @@ public class MainController {
         usuarioRepository.save(u);
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/Login", method = RequestMethod.GET, produces = "application/json")
     public Usuario login(@RequestParam("login") String login, @RequestParam("senha") String senha) {
 
@@ -107,6 +112,7 @@ public class MainController {
         }
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/GetLocalizacoes", method = RequestMethod.GET, produces = "application/json")
     public ArrayList<ArrayList<String>> getLocalizacoes() {
 
