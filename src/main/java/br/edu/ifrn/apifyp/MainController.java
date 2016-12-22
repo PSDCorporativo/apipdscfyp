@@ -2,6 +2,7 @@ package br.edu.ifrn.apifyp;
 
 import br.edu.ifrn.apifyp.model.Profissional;
 import br.edu.ifrn.apifyp.model.Usuario;
+import br.edu.ifrn.apifyp.model.Endereco;
 import br.edu.ifrn.apifyp.repository.EnderecoRepository;
 import br.edu.ifrn.apifyp.repository.ProfissionalRepository;
 import br.edu.ifrn.apifyp.repository.UsuarioRepository;
