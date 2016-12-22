@@ -48,6 +48,15 @@ public class MainController {
     }
     
     @CrossOrigin
+    @RequestMapping(value = "/GetEnderecoById", method = RequestMethod.GET, produces = "application/json")
+    public Endereco getProfissional(@RequestParam("idEndereco") Long idEndereco) {
+
+        Endereco endereco = enderecoRepository.findOne(idEndereco);
+
+        return endereco;
+    }
+    
+    @CrossOrigin
     @RequestMapping(value = "/ListProfissionais", method = RequestMethod.GET, produces = "application/json")
     public Set<Profissional> listProfissionais() {
         Set<Profissional> setPro = new TreeSet();
