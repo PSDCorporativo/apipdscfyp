@@ -50,7 +50,7 @@ public class MainController {
     
     @CrossOrigin
     @RequestMapping(value = "/GetEnderecoById", method = RequestMethod.GET, produces = "application/json")
-    public Endereco getProfissional(@RequestParam("idEndereco") Long idEndereco) {
+    public Endereco getEndereco(@RequestParam("idEndereco") Long idEndereco) {
 
         Endereco endereco = enderecoRepository.findOne(idEndereco);
 
