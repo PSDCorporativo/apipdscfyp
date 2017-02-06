@@ -175,6 +175,19 @@ public class MainController {
             avaliacaoUpdate.setNota(a.getNota());
             avaliacaoRepository.save(avaliacaoUpdate);
         }
+        
+        avaliacoes = avaliacaoRepository.findByProfissional(p);
+        
+        int count = 0;
+        int acumulador = 0;
+        
+        for (Avaliacao ava : avaliacoes) {
+            acumulador += ava.getNota();
+            count++;
+        }
+        
+        p.setPontuacao((acumulador/count)*2);
+        profissionalRepository.save(p);
     }
 
 }
