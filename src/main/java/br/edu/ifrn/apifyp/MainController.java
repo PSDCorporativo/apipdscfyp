@@ -155,7 +155,7 @@ public class MainController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/AdicionarAvaliacao", method = RequestMethod.POST)
+    @RequestMapping(value = "/AdicionarAvaliacao", consumes = "application/json", method = RequestMethod.POST)
     public void adicionarAvaliação(@RequestBody String rb) {
         
         Gson gson = new Gson();
