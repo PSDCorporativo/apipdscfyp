@@ -165,7 +165,16 @@ public class MainController {
 
         Avaliacao a = new Avaliacao(u, p, Integer.parseInt(avaliacao));
 
-        avaliacaoRepository.save(a);
+        List<Avaliacao> avaliacoes = avaliacaoRepository.findByProfissional(p);
+        
+        
+        if (!avaliacoes.contains(a)) {
+            avaliacaoRepository.save(a);
+        } else {
+            Avaliacao avaliacaoUpdate = avaliacaoRepository.findByProfissionalAndUsuario(p, u);
+            avaliacaoUpdate.setNota(a.getNota());
+            avaliacaoRepository.save(avaliacaoUpdate);
+        }
     }
 
 }

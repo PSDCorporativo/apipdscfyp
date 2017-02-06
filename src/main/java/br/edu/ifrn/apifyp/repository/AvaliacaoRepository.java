@@ -6,6 +6,7 @@
 package br.edu.ifrn.apifyp.repository;
 
 import br.edu.ifrn.apifyp.model.Avaliacao;
+import br.edu.ifrn.apifyp.model.Profissional;
 import br.edu.ifrn.apifyp.model.Usuario;
 import java.util.List;
 
@@ -17,5 +18,6 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface AvaliacaoRepository extends CrudRepository<Avaliacao, Long> {
     List<Avaliacao> findByUsuario(Usuario usuario);
-    List<Avaliacao> findByProfissional(String profissional);
+    List<Avaliacao> findByProfissional(Profissional profissional);
+    Avaliacao findByProfissionalAndUsuario(Profissional profissional, Usuario usuario);
 }
