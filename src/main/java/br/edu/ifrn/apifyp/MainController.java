@@ -153,26 +153,19 @@ public class MainController {
         return response;
     }
 
-    @RequestMapping(value = "/AdicionarAvaliacao", consumes = "application/json", produces = "application/json", method = RequestMethod.POST)
-    public Avaliacao adicionarAvaliação(@RequestBody String rb) {
+    @CrossOrigin
+    @RequestMapping(value = "/AdicionarAvaliacao", method = RequestMethod.GET)
+    public void adicionarAvaliação(@RequestParam("idusuario") String idUsuario, 
+            @RequestParam("idprofissional") String idProfissisonal, 
+            @RequestParam("avaliacao") String avaliacao) {
 
-        Gson gson = new Gson();
 
-        System.out.println(rb);
+        Usuario u = usuarioRepository.findOne(Long.parseLong(idUsuario));
+        Profissional p = profissionalRepository.findOne(Long.parseLong(idProfissisonal));
 
-        Type type = new TypeToken<Map<String, String>>() {
-        }.getType();
-
-        Map<String, String> myJson = gson.fromJson(rb, type);
-
-        Usuario u = usuarioRepository.findOne(Long.parseLong(myJson.get("idusuario")));
-        Profissional p = profissionalRepository.findOne(Long.parseLong(myJson.get("idprofissional")));
-
-        Avaliacao a = new Avaliacao(u, p, Integer.parseInt(myJson.get("avaliacao")));
+        Avaliacao a = new Avaliacao(u, p, Integer.parseInt(avaliacao));
 
         avaliacaoRepository.save(a);
-
-        return a;
     }
 
 }
