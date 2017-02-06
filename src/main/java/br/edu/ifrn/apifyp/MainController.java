@@ -10,6 +10,8 @@ import br.edu.ifrn.apifyp.repository.ProfissionalRepository;
 import br.edu.ifrn.apifyp.repository.UsuarioRepository;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -155,13 +157,19 @@ public class MainController {
     @CrossOrigin
     @RequestMapping(value = "/AdicionarAvaliacao", method = RequestMethod.POST)
     public void adicionarAvaliação(@RequestBody String rb) {
-        JsonJsonParser jp = new JsonJsonParser();
-        Map<String, Object> myJson = jp.parseMap(rb);
         
-        Usuario u = usuarioRepository.findOne(Long.parseLong((String) myJson.get("idusuario")));
-        Profissional p = profissionalRepository.findOne(Long.parseLong((String) myJson.get("idprofissional")));
+        Gson gson = new Gson();
+
+        System.out.println(rb);
         
-        Avaliacao a = new Avaliacao(u, p, (int) myJson.get("avaliacao"));
+        Type type = new TypeToken<Map<String, String>>(){}.getType();
+        
+        Map<String, String> myJson = gson.fromJson(rb, type);
+        
+        Usuario u = usuarioRepository.findOne(Long.parseLong(myJson.get("idusuario")));
+        Profissional p = profissionalRepository.findOne(Long.parseLong(myJson.get("idprofissional")));
+        
+        Avaliacao a = new Avaliacao(u, p, Integer.parseInt(myJson.get("avaliacao")));
         
         avaliacaoRepository.save(a);
     }
