@@ -47,7 +47,6 @@ public class MainController {
     EnderecoRepository enderecoRepository;
     @Autowired
     AvaliacaoRepository avaliacaoRepository;
-    
 
     @CrossOrigin
     @RequestMapping(value = "/GetFuncionarioById", method = RequestMethod.GET, produces = "application/json")
@@ -155,23 +154,26 @@ public class MainController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/AdicionarAvaliacao", consumes = "application/json", method = RequestMethod.POST)
-    public void adicionarAvaliação(@RequestBody String rb) {
-        
+    @RequestMapping(value = "/AdicionarAvaliacao", consumes = "application/json", produces = "application/json", method = RequestMethod.POST)
+    public Avaliacao adicionarAvaliação(@RequestBody String rb) {
+
         Gson gson = new Gson();
 
         System.out.println(rb);
-        
-        Type type = new TypeToken<Map<String, String>>(){}.getType();
-        
+
+        Type type = new TypeToken<Map<String, String>>() {
+        }.getType();
+
         Map<String, String> myJson = gson.fromJson(rb, type);
-        
+
         Usuario u = usuarioRepository.findOne(Long.parseLong(myJson.get("idusuario")));
         Profissional p = profissionalRepository.findOne(Long.parseLong(myJson.get("idprofissional")));
-        
+
         Avaliacao a = new Avaliacao(u, p, Integer.parseInt(myJson.get("avaliacao")));
-        
+
         avaliacaoRepository.save(a);
+
+        return a;
     }
 
 }
