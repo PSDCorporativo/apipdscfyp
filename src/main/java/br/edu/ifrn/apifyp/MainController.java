@@ -153,7 +153,6 @@ public class MainController {
         return response;
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/AdicionarAvaliacao", consumes = "application/json", produces = "application/json", method = RequestMethod.POST)
     public Avaliacao adicionarAvaliação(@RequestBody String rb) {
 
