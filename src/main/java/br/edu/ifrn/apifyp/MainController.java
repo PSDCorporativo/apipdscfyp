@@ -1,8 +1,10 @@
 package br.edu.ifrn.apifyp;
 
+import br.edu.ifrn.apifyp.model.Avaliacao;
 import br.edu.ifrn.apifyp.model.Profissional;
 import br.edu.ifrn.apifyp.model.Usuario;
 import br.edu.ifrn.apifyp.model.Endereco;
+import br.edu.ifrn.apifyp.repository.AvaliacaoRepository;
 import br.edu.ifrn.apifyp.repository.EnderecoRepository;
 import br.edu.ifrn.apifyp.repository.ProfissionalRepository;
 import br.edu.ifrn.apifyp.repository.UsuarioRepository;
@@ -38,6 +40,9 @@ public class MainController {
     UsuarioRepository usuarioRepository;
     @Autowired
     EnderecoRepository enderecoRepository;
+    @Autowired
+    AvaliacaoRepository avaliacaoRepository;
+    
 
     @CrossOrigin
     @RequestMapping(value = "/GetFuncionarioById", method = RequestMethod.GET, produces = "application/json")
@@ -47,7 +52,7 @@ public class MainController {
 
         return profissional;
     }
-    
+
     @CrossOrigin
     @RequestMapping(value = "/GetEnderecoById", method = RequestMethod.GET, produces = "application/json")
     public Endereco getEndereco(@RequestParam("idEndereco") Long idEndereco) {
@@ -56,7 +61,7 @@ public class MainController {
 
         return endereco;
     }
-    
+
     @CrossOrigin
     @RequestMapping(value = "/ListProfissionais", method = RequestMethod.GET, produces = "application/json")
     public Set<Profissional> listProfissionais() {
@@ -74,9 +79,9 @@ public class MainController {
     @RequestMapping(value = "/ListProfissionaisByProfissao", method = RequestMethod.GET, produces = "application/json")
     public Set<Profissional> listProfissionaisByProfissao(@RequestParam("profissao") String profissao) {
         Set<Profissional> setPro = new TreeSet();
-        
+
         // apenas um comentário 
-       Iterable<Profissional> profissionais = profissionalRepository.findByProfissao(profissao);
+        Iterable<Profissional> profissionais = profissionalRepository.findByProfissao(profissao);
 
         for (Profissional p : profissionais) {
             setPro.add(p);
@@ -132,15 +137,26 @@ public class MainController {
 
         for (Profissional p : profissionais) {
             ArrayList<String> temp = new ArrayList();
-            
+
             temp.add(p.getUsuario().getNome());
             temp.add(String.valueOf(p.getUsuario().getEndereco().getLatitude()));
             temp.add(String.valueOf(p.getUsuario().getEndereco().getLongintude()));
             temp.add(String.valueOf(p.getId()));
-            
+
             response.add(temp);
         }
 
         return response;
     }
+
+    @CrossOrigin
+    @RequestMapping(value = "/AdicionarAvaliacao", method = RequestMethod.POST)
+    public void adicionarAvaliação(@RequestBody String rb) {
+        Gson gson = new Gson();
+
+        Avaliacao a = gson.fromJson(rb, Avaliacao.class);
+
+        avaliacaoRepository.save(a);
+    }
+
 }
