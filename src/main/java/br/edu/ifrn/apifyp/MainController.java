@@ -9,12 +9,15 @@ import br.edu.ifrn.apifyp.repository.EnderecoRepository;
 import br.edu.ifrn.apifyp.repository.ProfissionalRepository;
 import br.edu.ifrn.apifyp.repository.UsuarioRepository;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.json.JsonJsonParser;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -152,10 +155,14 @@ public class MainController {
     @CrossOrigin
     @RequestMapping(value = "/AdicionarAvaliacao", method = RequestMethod.POST)
     public void adicionarAvaliação(@RequestBody String rb) {
-        Gson gson = new Gson();
-
-        Avaliacao a = gson.fromJson(rb, Avaliacao.class);
-
+        JsonJsonParser jp = new JsonJsonParser();
+        Map<String, Object> myJson = jp.parseMap(rb);
+        
+        Usuario u = usuarioRepository.findOne(Long.parseLong((String) myJson.get("idusuario")));
+        Profissional p = profissionalRepository.findOne(Long.parseLong((String) myJson.get("idprofissional")));
+        
+        Avaliacao a = new Avaliacao(u, p, (int) myJson.get("avaliacao"));
+        
         avaliacaoRepository.save(a);
     }
 
